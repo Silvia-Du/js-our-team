@@ -25,5 +25,6 @@ console.log(team);
 
 for(let i in team){
   console.log('simgolo membro del team----',team[i]);
+  console.log(team[i].name,'nome del membro');
 }
 
