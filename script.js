@@ -2,6 +2,7 @@
 const teamContainer = document.querySelector('.team-container');
 const buttonAddMember = document.getElementById('addMemberButton');
 //array team
+
 const team = [
   {
     imageUrl: 'img/angela-caroll-chief-editor.jpg',
@@ -50,42 +51,51 @@ const team = [
   },
   //non metto l'ultimo per usare l'img come prova utente
 ];
-
+getCardPrinter();
 console.log(team);
 
-
 //stampo in pagina le card
-for(let i in team){
 
-  const outputCard = `
-    <div class="team-card">
-      <div class="card-image">
-        <img
-          src="${team[i].imageUrl}"
-          alt="${team[i].name}"
-        />
+function getCardPrinter(){
+  for(let i in team){
+
+    const outputCard = `
+      <div class="team-card">
+        <div class="card-image">
+          <img
+            src="${team[i].imageUrl}"
+            alt="${team[i].name}"
+          />
+        </div>
+        <div class="card-text">
+          <h3>${team[i].name}</h3>
+          <p>${team[i].ruolo}</p>
+        </div>
       </div>
-      <div class="card-text">
-        <h3>${team[i].name}</h3>
-        <p>${team[i].ruolo}</p>
-      </div>
-    </div>
-  `;
-  teamContainer.innerHTML += outputCard;
+    `;
+    teamContainer.innerHTML += outputCard;
+  }
 }
 
-buttonAddMember.addEventListener('click', takeNewMember);
 
-function takeNewMember(){
+buttonAddMember.addEventListener('click', getNewMember);
+
+function getNewMember(){
 
   const name = document.getElementById('name').value.trim();
-  console.log(name,'nome user');
-  const role = document.getElementById('role').value.trim();
-  console.log(role, 'ruolo utente');
-  const imageUser = document.getElementById('image').value.trim();
-  console.log(imageUser);
 
-  
+  const role = document.getElementById('role').value.trim();
+
+  const imageUser = document.getElementById('image').value.trim();
+
+  team.push({
+      imageUrl: imageUser,
+      name: name,
+      ruolo: role,
+    });
+
+   console.log(team); 
+   getCardPrinter();
 
 }
 
