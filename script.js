@@ -1,8 +1,15 @@
+/*
+
+Una volta definita la struttura dati, prendendo come riferimento la card di esempio presente nell’html, stampare dinamicamente una card per ogni membro del team.
+BONUS:
+Utilizzare gli input presenti nella pagina per permettere all’utente di aggiungere nuovi membri del team: cliccando sul pulsante “add” viene creato un **nuovo oggetto**, il quale viene **inserito nell’array iniziale** e viene stampata una nuova card con tutte le informazioni inserite dall’utente.
+*/
+
 
 const teamContainer = document.querySelector('.team-container');
-const buttonAddMember = document.getElementById('addMemberButton');
-//array team
+document.getElementById('addMemberButton').addEventListener('click', getNewMember);
 
+//array team
 const team = [
   {
     imageUrl: 'img/angela-caroll-chief-editor.jpg',
@@ -40,62 +47,71 @@ const team = [
     ruolo: 'Developer Project Manager'
   },
   {
-    imageUrl: 'img/new-team-member-03.jpg',
-    name: 'Suzanee Waite',
-    ruolo: 'Direttrice Operativa'
-  },
-  {
     imageUrl: 'img/new-team-member-02.jpg',
     name: 'Wayne Barnett',
     ruolo: 'Chiaramente Aviatore aziendale'
   },
-  //non metto l'ultimo per usare l'img come prova utente
+  //non ne ho messi 2 per usare l'img come prova utente;
 ];
-getCardPrinter();
-console.log(team);
 
-//stampo in pagina le card
 
-function getCardPrinter(){
-  for(let i in team){
+const getCard = () => {
+  
+  teamContainer.innerHTML = '';
 
-    const outputCard = `
-      <div class="team-card">
-        <div class="card-image">
-          <img
-            src="${team[i].imageUrl}"
-            alt="${team[i].name}"
-          />
-        </div>
-        <div class="card-text">
-          <h3>${team[i].name}</h3>
-          <p>${team[i].ruolo}</p>
-        </div>
-      </div>
-    `;
-    teamContainer.innerHTML += outputCard;
-  }
+  for(let member of team){
+
+    console.log(member);
+    getCardPrinter(member);
+  } 
+
 }
 
+getCard();
 
-buttonAddMember.addEventListener('click', getNewMember);
 
-function getNewMember(){
+function getCardPrinter(member){
+
+  const {imageUrl, name, ruolo} = member;
+
+ const cardHtml =`
+  <div class="team-card">
+    <div class="card-image">
+      <img
+        src="${imageUrl}"
+        alt="${name}"
+      />
+    </div>
+    <div class="card-text">
+      <h3>${name}</h3>
+      <p>${ruolo}</p>
+    </div>
+  </div>`; 
+
+  teamContainer.innerHTML += cardHtml;
+
+}
+
+function getNewMember (){
 
   const name = document.getElementById('name').value.trim();
+  const ruolo = document.getElementById('role').value.trim();
+  const imageUrl = document.getElementById('image').value.trim();
 
-  const role = document.getElementById('role').value.trim();
+  const newTeamMember = {imageUrl, name, ruolo};
 
-  const imageUser = document.getElementById('image').value.trim();
+  console.log(teamContainer, 'container team---');
 
-  team.push({
-      imageUrl: imageUser,
-      name: name,
-      ruolo: role,
-    });
-
-   console.log(team); 
-   getCardPrinter();
-
+  getCardPrinter(newTeamMember);
+  resetForm();
 }
+
+function resetForm(){
+  document.getElementById('name').value = '';
+  document.getElementById('role').value = '';
+  document.getElementById('image').value = '';
+}
+
+
+
 
