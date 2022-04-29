@@ -54,7 +54,9 @@ const team = [
   //non ne ho messi 2 per usare l'img come prova utente;
 ];
 
-
+/**
+ * cicla gli elementi da stampare in pagina
+ */
 const getCard = () => {
   
   teamContainer.innerHTML = '';
@@ -69,7 +71,10 @@ const getCard = () => {
 
 getCard();
 
-
+/**
+ * definisce l' elemento html da stampare in pagina e lo aggiunge al contenuto esistente;
+ * @param {string} member 
+ */
 function getCardPrinter(member){
 
   const {imageUrl, name, ruolo} = member;
@@ -92,6 +97,9 @@ function getCardPrinter(member){
 
 }
 
+/**
+ * raccoglie dati utente tramite input e richiama la funzione di stampa per aggiungere l'utente in pagina;
+ */
 function getNewMember (){
 
   const name = document.getElementById('name').value.trim();
@@ -106,6 +114,9 @@ function getNewMember (){
   resetForm();
 }
 
+ /**
+  * resetta i campi di imnput;
+  */
 function resetForm(){
   document.getElementById('name').value = '';
   document.getElementById('role').value = '';
